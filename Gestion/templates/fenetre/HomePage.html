@@ -1,0 +1,107 @@
+{% extends 'parts/base.html' %} {% block title %}Accueil{% endblock %} {% load crispy_forms_tags %} {% load static %} {% block content %}{% include 'parts/top.html' %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-4">
+            <a class="text-decoration-none text-dark" href="{%url 'Stagiaire'%}">
+                <div class="card my-card shadow">
+                    <div class="card-body text-center">
+                        <h4>Stagiaires <i class="fas fa-user-graduate"></i></h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a class="text-decoration-none text-dark" href="{%url 'Enseignant'%}">
+                <div class="card my-card shadow">
+                    <div class="card-body text-center">
+                        <h4>Enseignants <i class="fas fa-user-tie"></i></h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a class="text-decoration-none text-dark" href="{%url 'Stage'%}">
+                <div class="card my-card shadow">
+                    <div class="card-body text-center">
+                        <h4>Stages <i class="fas fa-laptop-code"></i></h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+    </div>
+
+</div>
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-4">
+            <a class="text-decoration-none text-dark" href="{%url 'Organisme'%}">
+                <div class="card my-card shadow">
+                    <div class="card-body text-center">
+                        <h4>Organismes <i class="fas fa-building"></i></h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a class="text-decoration-none text-dark" href="{%url 'Membre'%}">
+                <div class="card my-card shadow">
+                    <div class="card-body text-center">
+                        <h4>Membres <i class="fas fa-user-alt"></i></h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a class="text-decoration-none text-dark" href="{%url 'Jury'%}">
+                <div class="card my-card shadow">
+                    <div class="card-body text-center">
+                        <h4>Jurys <i class="fas fa-user-tie"></i></h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-4">
+            <a class="text-decoration-none text-dark" href="{%url 'Convention'%}">
+                <div class="card my-card shadow">
+                    <div class="card-body text-center">
+                        <h4>Conventions <i class="fas fa-file-invoice"></i></h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a class="text-decoration-none text-dark" href="{%url 'Rapport'%}">
+                <div class="card my-card shadow">
+                    <div class="card-body text-center">
+                        <h4>Rapports <i class="fas fa-book"></i></i>
+                        </h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a class="text-decoration-none text-dark" href="{%url 'ficheEva'%}">
+                <div class="card my-card shadow">
+                    <div class="card-body text-center">
+                        <h4>Fiches Evaluation <i class="fas fa-file-invoice"></i></i>
+                        </h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

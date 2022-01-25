@@ -1,0 +1,109 @@
+{% extends 'parts/base.html' %} {% block title %}Stagiaires{% endblock %} {% load crispy_forms_tags %} {% load static %} {% block scripts%}
+<script>
+    $(function() {
+        $("#id_DateNaissance").datepicker();
+    });
+</script>{%endblock%} {% block content %}{% include 'parts/top.html' %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<!-- Fengyuan Chen's Datepicker -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+
+<div class="row">
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-header bg-dark text-light">
+                Cette fenêtre donne des informations sur
+            </div>
+            <div class="card-body">
+                <marquee behavior="" direction="">
+                    <h3 class="my-4"> Les Stagiaires</h3>
+                </marquee>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 mt-4">
+        <div class="card">
+            <div class="card-header bg-dark  text-light">
+                Statistiques
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Stagiaires<i class="fas fa-user-graduate"></i></h4>
+                                    <h3>{{ stagiaire_count }}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="{%url 'statistiques'%}">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Stagiaires selon année d'étude <i class="fas fa-hand-pointer"></i></h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row my-4">
+
+    <div class="col-md-4">
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %} {% endif %}
+        <div class="card card-body">
+            <h5>Ajouter un nouveau Stagiaire</h5>
+            <hr>
+            <form method="POST">
+                {% csrf_token %}{{ form|crispy }}
+                <input class="btn btn-info btn-block" type="submit" value="Ajouter">
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <table class="table bg-white">
+            <thead class="bg-dark text-light">
+                <tr>
+                    <th scope="col">Nom Stagiaire</th>
+                    <th scope="col">Préom Stagiaire</th>
+                    <th scope="col">Date de naissance</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Année d'étude</th>
+                    <th scope="col">Stage</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in stagiaires %}
+                <tr>
+                    <td>{{ item.noms }}</td>
+                    <td>{{ item.prenoms }}</td>
+                    <td>{{ item.DateNaissance }}</td>
+                    <td>{{ item.Email }}</td>
+                    <td>{{ item.annedEude }}</td>
+                    <td>{{ item.stage }}</td>
+                    <td><a class="btn btn-info btn-sm mr-2" href="{% url 'dashboard-stag-edit' item.id %}">Modifier</a></td>
+                    <td><a class="btn btn-danger btn-sm ml-2" href="{% url 'dashboard-stag-delete' item.id %}">Supprimer</a></td>
+                </tr>
+                {% endfor %}
+                <tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

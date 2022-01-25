@@ -1,0 +1,104 @@
+{% extends 'parts/base.html' %} {% block title %}Statistiques sur les Stagiaires{% endblock %} {% load crispy_forms_tags %} {% load static %} {% block scripts%}
+<script>
+    $(document).ready(function() {
+        const graph = document.getElementById("graph").getContext("2d");
+
+        Chart.defaults.global.defaultFontSize = 18;
+
+        let massPopChart = new Chart(graph, {
+            type: "pie", // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+            data: {
+                labels: [
+                    "Stagiaire en 1CPI",
+                    "Stagiaire en 1CS",
+                    "Stagiaire en 3CS",
+                ],
+                datasets: [{
+                    label: "Stagiaires selon années d'études",
+                    data: ['{{stagiaire1_count}}', '{{stagiaire2_count}}', '{{stagiaire3_count}}'],
+                    // backgroundColor: "blue",
+                    backgroundColor: [
+                        "red",
+                        "orange",
+                        "salmon",
+                        "blue",
+                        "yellow",
+                        "purple",
+                        "green",
+                        "tomato",
+                    ],
+                    hoverBorderWidth: 3,
+                }, ],
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Stagiaires selon année d'étude",
+                    fontSize: 24,
+                },
+                legend: {
+                    display: true,
+                },
+                // start at 0
+                // scales: {
+                //     yAxes: [{
+                //         ticks: {
+                //             beginAtZero: false,
+                //         },
+                //     }, ],
+                // },
+                layout: {
+                    padding: {
+                        left: 100,
+                        right: 100,
+                        top: 50,
+                    },
+                },
+            },
+        });
+    });
+</script> {%endblock%} {% block content %}
+<div class="row">
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-header bg-dark text-light">
+                Cette fenêtre donne des informations sur
+            </div>
+            <div class="card-body">
+                <marquee behavior="" direction="">
+                    <h3 class="my-4"> Les Stagiaires</h3>
+                </marquee>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 mt-4">
+        <div class="card">
+            <div class="card-header bg-dark  text-light">
+                Statistiques
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Stagiaires<i class="fas fa-user-graduate"></i></h4>
+                                    <h3>{{ stagiaire_count }}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="{%url 'Stagiaire'%}">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Se retourner vers Stagiaires <i class="fas fa-hand-pointer"></i></h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <canvas id="graph"></canvas> {{orga}}{% endblock %}

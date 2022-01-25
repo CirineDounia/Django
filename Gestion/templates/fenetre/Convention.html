@@ -1,0 +1,79 @@
+{% extends 'parts/base.html' %} {% block title %}Convention{% endblock %} {% load crispy_forms_tags %} {% load static %} {% block content %}{% include 'parts/top.html' %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<div class="row">
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-header bg-dark text-light">
+                Cette fenêtre donne des informations sur
+            </div>
+            <div class="card-body">
+                <marquee behavior="" direction="">
+                    <h3 class="my-4"> Les Conventions</h3>
+                </marquee>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 mt-4">
+        <div class="card">
+            <div class="card-header bg-dark text-light">
+                Statistiques
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Conventions <i class="fas fa-file-invoice"></i></h4>
+                                    <h3>{{ convention_count }}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row my-4">
+
+    <div class="col-md-4">
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %} {% endif %}
+        <div class="card card-body">
+            <h5>Ajouter un nouveau Convention</h5>
+            <hr>
+            <form method="POST">
+                {% csrf_token %}{{ form|crispy }}
+                <input class="btn btn-info btn-block" type="submit" value="Ajouter">
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <table class="table bg-white">
+            <thead class="bg-dark text-light">
+                <tr>
+                    <th scope="col">Durée</th>
+                    <th scope="col">Titre Stage</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in conventions %}
+                <tr>
+                    <td>{{ item.duree }}</td>
+                    <td>{{ item.stage }}</td>
+                    <td><a class="btn btn-info btn-sm mr-2" href="{% url 'dashboard-conv-edit' item.id %}">Modifier</a></td>
+                    <td><a class="btn btn-danger btn-sm ml-2" href="{% url 'dashboard-conv-delete' item.id %}">Supprimer</a></td>
+                </tr>
+                {% endfor %}
+                <tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

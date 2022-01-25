@@ -1,0 +1,107 @@
+{% extends 'parts/base.html' %} {% block title %}Statistiques sur les Stagiaires{% endblock %} {% load crispy_forms_tags %} {% load static %} {% block scripts%}
+<script>
+    $(document).ready(function() {
+        const graph1 = document.getElementById("graph1").getContext("2d");
+
+        Chart.defaults.global.defaultFontSize = 18;
+
+        let massPopChart = new Chart(graph1, {
+            type: "pie", // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+            data: {
+                labels: [
+                    "Maître Assistant A",
+                    "Maître Assistant B",
+                    "Maître de conférence A",
+                    "Maître de conférence B",
+                    "Professeur",
+                ],
+                datasets: [{
+                    label: "Stagiaires selon années d'études",
+                    data: ['{{enseignant1_count}}', '{{enseignant2_count}}', '{{enseignant3_count}}', '{{enseignant4_count}}', '{{enseignant5_count}}'],
+                    // backgroundColor: "blue",
+                    backgroundColor: [
+                        "red",
+                        "orange",
+                        "salmon",
+                        "blue",
+                        "yellow",
+                        "purple",
+                        "green",
+                        "tomato",
+                    ],
+                    hoverBorderWidth: 3,
+                }, ],
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Enseignant selon Grade",
+                    fontSize: 24,
+                },
+                legend: {
+                    display: true,
+                },
+                // start at 0
+                // scales: {
+                //     yAxes: [{
+                //         ticks: {
+                //             beginAtZero: false,
+                //         },
+                //     }, ],
+                // },
+                layout: {
+                    padding: {
+                        left: 100,
+                        right: 100,
+                        top: 50,
+                    },
+                },
+            },
+        });
+    });
+</script> {%endblock%} {% block content %}
+
+<div class="row">
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-header bg-dark text-light">
+                Cette fenêtre donne des informations sur
+            </div>
+            <div class="card-body">
+                <marquee behavior="" direction="">
+                    <h3 class="my-4"> Les Enseignants </h3>
+                </marquee>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 mt-4">
+        <div class="card">
+            <div class="card-header bg-dark  text-light">
+                Statistiques
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Enseignants<i class="fas fa-user-graduate"></i></h4>
+                                    <h3>{{ enseignant_count }}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="{%url 'Enseignant'%}">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Se retourner vers Enseignats <i class="fas fa-hand-pointer"></i></h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <canvas id="graph1"></canvas>{% endblock %}
